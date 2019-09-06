@@ -5,12 +5,14 @@
         <th>Name</th>
         <th>Age</th>
         <th>Designation</th>
+        <th>Company</th>
     </tr>
     <% @employees.each do |employee| %>
         <tr>
             <td><%= employee.name%></td>
             <td><%= employee.age%></td>
             <td><%= employee.designation%></td>
+            <td><%= employee.company%></td>
             <td><%= link_to  "Details", employee_path(employee) %> |
              <%= link_to  "Edit", edit_employee_path(employee.id) %> |
              <%= link_to  "Delete", employee_path(employee.id), method: :delete,

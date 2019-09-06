@@ -14,6 +14,10 @@
     <%= @employee.designation %>
 </p>
 <p>
+    <strong>Company: </strong>
+    <%= @employee.company %>
+</p>
+<p>
     <%= link_to  "Edit", edit_employee_path(@employee.id) %>
     <%= link_to  "Show All", employees_path %>
 </p>
