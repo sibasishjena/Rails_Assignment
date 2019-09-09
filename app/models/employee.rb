@@ -4,3 +4,10 @@ class Employee < ApplicationRecord
     validates :designation, presence: true
     validates :company, presence: true
 end
+
+#should_a_matcher.... done
+#before after filters.... done
+#binding.pry
+
+#apis - create an api only app 
+#rspecs for controllers and models..... done

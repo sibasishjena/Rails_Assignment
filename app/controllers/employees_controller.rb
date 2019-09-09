@@ -1,11 +1,13 @@
 class EmployeesController < ApplicationController
     def index
         @employees=Employee.all
+        binding.pry
     end
 
     def show
         #render plain: params[:id].inspect
-        @employee = Employee.find(params[:id])
+        @employee = find_employee
+        json_response(@employee)
     end
 
     def new
@@ -13,7 +15,7 @@ class EmployeesController < ApplicationController
     end
 
     def edit
-        @employee = Employee.find(params[:id])
+        @employee = find_employee
     end
 
     def create
@@ -27,7 +29,7 @@ class EmployeesController < ApplicationController
     end
 
     def update
-        @employee = Employee.find(params[:id])
+        @employee = find_employee
         if @employee.update(employee_params)
             redirect_to employees_path
         else
@@ -36,14 +38,20 @@ class EmployeesController < ApplicationController
     end
 
     def destroy
-        @employee = Employee.find(params[:id])
+        @employee = find_employee
         @employee.destroy
         redirect_to employees_path
     end
-
+    
+    def find_employee
+        Employee.find(params[:id])
+    end
+    skip_before_action find_employee, only: [:new, :create, :index]
     
     private
+        
+
         def employee_params
-            params.require(:employee).permit(:name,:age,:designation)
+            params.require(:employee).permit(:name,:age,:designation,:company)
         end
 end
