@@ -1,4 +1,8 @@
 class EmployeesController < ApplicationController
+    def employee_params
+        params.require(:employee).permit(:name,:age,:designation,:company)
+    end
+    
     def index
         @employees=Employee.all
         binding.pry
@@ -7,7 +11,6 @@ class EmployeesController < ApplicationController
     def show
         #render plain: params[:id].inspect
         @employee = find_employee
-        json_response(@employee)
     end
 
     def new
@@ -47,11 +50,4 @@ class EmployeesController < ApplicationController
         Employee.find(params[:id])
     end
     skip_before_action find_employee, only: [:new, :create, :index]
-    
-    private
-        
-
-        def employee_params
-            params.require(:employee).permit(:name,:age,:designation,:company)
-        end
 end
