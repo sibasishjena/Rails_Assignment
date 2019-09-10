@@ -2,15 +2,21 @@ class EmployeesController < ApplicationController
     def employee_params
         params.require(:employee).permit(:name,:age,:designation,:company)
     end
+
+    def find_employee
+        @employee=Employee.find(params[:id])
+        #binding.pry
+    end
+    before_action :find_employee, except: [:new, :create, :index]
     
     def index
+        #binding.pry
         @employees=Employee.all
-        binding.pry
     end
 
     def show
         #render plain: params[:id].inspect
-        @employee = find_employee
+        #@employee = find_employee
     end
 
     def new
@@ -18,7 +24,7 @@ class EmployeesController < ApplicationController
     end
 
     def edit
-        @employee = find_employee
+        #@employee = find_employee
     end
 
     def create
@@ -32,7 +38,7 @@ class EmployeesController < ApplicationController
     end
 
     def update
-        @employee = find_employee
+        #@employee = find_employee
         if @employee.update(employee_params)
             redirect_to employees_path
         else
@@ -41,13 +47,8 @@ class EmployeesController < ApplicationController
     end
 
     def destroy
-        @employee = find_employee
+        #@employee = find_employee
         @employee.destroy
         redirect_to employees_path
     end
-    
-    def find_employee
-        Employee.find(params[:id])
-    end
-    skip_before_action find_employee, only: [:new, :create, :index]
 end
