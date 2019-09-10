@@ -1,12 +1,4 @@
 class EmployeesController < ApplicationController
-    def employee_params
-        params.require(:employee).permit(:name,:age,:designation,:company)
-    end
-
-    def find_employee
-        @employee=Employee.find(params[:id])
-        #binding.pry
-    end
     before_action :find_employee, except: [:new, :create, :index]
     
     def index
@@ -50,5 +42,15 @@ class EmployeesController < ApplicationController
         #@employee = find_employee
         @employee.destroy
         redirect_to employees_path
+    end
+
+    private
+    def employee_params
+        params.require(:employee).permit(:name,:age,:designation,:company)
+    end
+
+    def find_employee
+        @employee=Employee.find(params[:id])
+        #binding.pry
     end
 end
